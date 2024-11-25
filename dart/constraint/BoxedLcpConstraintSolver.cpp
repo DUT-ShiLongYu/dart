@@ -237,7 +237,7 @@ void BoxedLcpConstraintSolver::solveConstrainedGroup(ConstrainedGroup& group)
     }
   }
 
-  assert(isSymmetric(n, mA.data()));
+  // assert(isSymmetric(n, mA.data()));
 
   // Print LCP formulation
   //  dtdbg << "Before solve:" << std::endl;

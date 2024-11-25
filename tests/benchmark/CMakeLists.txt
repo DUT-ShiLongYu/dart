@@ -31,7 +31,7 @@
 include(FetchContent)
 FetchContent_Declare(
   benchmark
-  GIT_REPOSITORY https://github.com/google/benchmark.git
+  GIT_REPOSITORY git@github.com:google/benchmark.git
   GIT_TAG v1.8.3
 )
 set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "" FORCE)

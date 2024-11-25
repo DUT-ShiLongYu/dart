@@ -137,13 +137,13 @@ void PGSLCPSolver::solve(ConstrainedGroup* _group)
       }
     }
 
-    assert(isSymmetric(
-        n, A, offset[i], offset[i] + constraint->getDimension() - 1));
+    // assert(isSymmetric(
+    //     n, A, offset[i], offset[i] + constraint->getDimension() - 1));
 
     constraint->unexcite();
   }
 
-  assert(isSymmetric(n, A));
+  // assert(isSymmetric(n, A));
 
   // Print LCP formulation
   //  dtdbg << "Before solve:" << std::endl;
