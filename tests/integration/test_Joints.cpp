@@ -92,7 +92,7 @@ public:
 protected:
   // Sets up the test fixture.
   void SetUp() override;
-
+  void TearDown() override;
   std::vector<SimpleFrame*> frames;
 };
 
@@ -106,6 +106,15 @@ void JOINTS::SetUp()
   frames.push_back(new SimpleFrame(frames.back(), "refFrame4"));
   frames.push_back(new SimpleFrame(Frame::World(), "refFrame5"));
   frames.push_back(new SimpleFrame(frames.back(), "refFrame6"));
+}
+void JOINTS::TearDown()
+{
+    // 释放所有动态分配的 SimpleFrame 对象
+    for (auto frame : frames)
+    {
+        delete frame; // 手动释放内存
+    }
+    frames.clear(); // 清空列表
 }
 
 //==============================================================================

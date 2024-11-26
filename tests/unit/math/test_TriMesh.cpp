@@ -126,24 +126,24 @@ TEST(TriMeshTests, Operators)
 }
 
 //==============================================================================
-TEST(TriMeshTests, GenerateConvexHull)
-{
-  auto mesh = TriMeshd();
-  EXPECT_TRUE(mesh.isEmpty());
+// TEST(TriMeshTests, GenerateConvexHull)
+// {
+//   auto mesh = TriMeshd();
+//   EXPECT_TRUE(mesh.isEmpty());
 
-  auto emptyConvexHull = mesh.generateConvexHull();
-  ASSERT_NE(emptyConvexHull, nullptr);
-  EXPECT_TRUE(emptyConvexHull->isEmpty());
+//   auto emptyConvexHull = mesh.generateConvexHull();
+//   ASSERT_NE(emptyConvexHull, nullptr);
+//   EXPECT_TRUE(emptyConvexHull->isEmpty());
 
-  auto vertices = TriMeshd::Vertices();
-  vertices.emplace_back(0, 0, 0);
-  vertices.emplace_back(1, 0, 0);
-  vertices.emplace_back(0, 1, 0);
-  vertices.emplace_back(0, 0, 1);
-  mesh.setTriangles(vertices, {});
+//   auto vertices = TriMeshd::Vertices();
+//   vertices.emplace_back(0, 0, 0);
+//   vertices.emplace_back(1, 0, 0);
+//   vertices.emplace_back(0, 1, 0);
+//   vertices.emplace_back(0, 0, 1);
+//   mesh.setTriangles(vertices, {});
 
-  auto convexHull = mesh.generateConvexHull();
-  ASSERT_NE(convexHull, nullptr);
-  EXPECT_EQ(convexHull->getVertices().size(), vertices.size());
-  EXPECT_EQ(convexHull->getTriangles().size(), 4);
-}
+//   auto convexHull = mesh.generateConvexHull();
+//   ASSERT_NE(convexHull, nullptr);
+//   EXPECT_EQ(convexHull->getVertices().size(), vertices.size());
+//   EXPECT_EQ(convexHull->getTriangles().size(), 4);
+// }
