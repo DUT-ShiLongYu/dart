@@ -113,6 +113,7 @@ public:
 protected:
   // Sets up the test fixture.
   void SetUp() override;
+  void TearDown() override;
 
   // Skel file list.
   std::vector<common::Uri> fileList;
@@ -157,6 +158,15 @@ void DynamicsTest::SetUp()
   refFrames.push_back(new SimpleFrame(refFrames.back(), "refFrame4"));
   refFrames.push_back(new SimpleFrame(Frame::World(), "refFrame5"));
   refFrames.push_back(new SimpleFrame(refFrames.back(), "refFrame6"));
+}
+void DynamicsTest::TearDown()
+{
+    // 释放所有动态分配的 SimpleFrame 对象
+    for (auto frame : refFrames)
+    {
+        delete frame; // 手动释放内存
+    }
+    refFrames.clear(); // 清空列表
 }
 
 //==============================================================================

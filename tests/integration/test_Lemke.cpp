@@ -52,6 +52,7 @@ TEST(Lemke, Lemke_1D)
 
   EXPECT_EQ(err, 0);
   EXPECT_TRUE(dart::lcpsolver::validate(A, (*f), b));
+  delete f;
 }
 
 //==============================================================================
@@ -71,6 +72,7 @@ TEST(Lemke, Lemke_2D)
 
   EXPECT_EQ(err, 0);
   EXPECT_TRUE(dart::lcpsolver::validate(A, (*f), b));
+  delete f;
 }
 
 //==============================================================================
@@ -93,6 +95,7 @@ TEST(Lemke, Lemke_4D)
 
   EXPECT_EQ(err, 0);
   EXPECT_TRUE(dart::lcpsolver::validate(A, (*f), b));
+  delete f;
 }
 
 //==============================================================================
@@ -118,6 +121,7 @@ TEST(Lemke, Lemke_6D)
 
   EXPECT_EQ(err, 0);
   EXPECT_TRUE(dart::lcpsolver::validate(A, (*f), b));
+  delete f;
 }
 
 //==============================================================================
@@ -154,6 +158,8 @@ TEST(Lemke, Lemke_12D)
 
   EXPECT_EQ(err, 0);
   EXPECT_TRUE(dart::lcpsolver::validate(A, (*f), b));
+  delete f;
+
 }
 
 //==============================================================================

@@ -263,39 +263,53 @@ bool BulletCollisionDetector::collide(
     const CollisionOption& option,
     CollisionResult* result)
 {
-  if (result)
-    result->clear();
+    if (result)
+        result->clear();
 
-  if (0u == option.maxNumContacts)
-    return false;
+    if (0u == option.maxNumContacts)
+        return false;
 
-  if (!checkGroupValidity(this, group1))
-    return false;
+    if (!checkGroupValidity(this, group1))
+        return false;
 
-  if (!checkGroupValidity(this, group2))
-    return false;
+    if (!checkGroupValidity(this, group2))
+        return false;
 
-  // Create a new collision group, merging the two groups into
-  mGroupForFiltering.reset(new BulletCollisionGroup(shared_from_this()));
-  auto bulletCollisionWorld = mGroupForFiltering->getBulletCollisionWorld();
-  auto bulletPairCache = bulletCollisionWorld->getPairCache();
-  auto filterCallback = new detail::BulletOverlapFilterCallback(
-      option.collisionFilter, group1, group2);
-  bulletPairCache->setOverlapFilterCallback(filterCallback);
+    // 创建一个新的 BulletCollisionGroup 对象并分配内存
+    BulletCollisionGroup* groupForFiltering = new BulletCollisionGroup(shared_from_this());
 
-  mGroupForFiltering->addShapeFramesOf(group1, group2);
-  mGroupForFiltering->updateEngineData();
+    auto bulletCollisionWorld = groupForFiltering->getBulletCollisionWorld();
+    auto bulletPairCache = bulletCollisionWorld->getPairCache();
 
-  bulletCollisionWorld->performDiscreteCollisionDetection();
+    // 创建 filterCallback 并分配内存
+    auto filterCallback = new detail::BulletOverlapFilterCallback(
+        option.collisionFilter, group1, group2);
+    bulletPairCache->setOverlapFilterCallback(filterCallback);
 
-  if (result) {
-    reportContacts(bulletCollisionWorld, option, *result);
+    groupForFiltering->addShapeFramesOf(group1, group2);
+    groupForFiltering->updateEngineData();
 
-    return result->isCollision();
-  } else {
-    return isCollision(bulletCollisionWorld);
-  }
+    bulletCollisionWorld->performDiscreteCollisionDetection();
+
+    if (result) {
+        reportContacts(bulletCollisionWorld, option, *result);
+
+        // 手动释放内存
+        delete filterCallback; // 释放 filterCallback 内存
+        delete groupForFiltering; // 释放 groupForFiltering 内存
+
+        return result->isCollision();
+    } else {
+        bool collisionDetected = isCollision(bulletCollisionWorld);
+
+        // 手动释放内存
+        delete filterCallback; // 释放 filterCallback 内存
+        delete groupForFiltering; // 释放 groupForFiltering 内存
+
+        return collisionDetected;
+    }
 }
+
 
 //==============================================================================
 double BulletCollisionDetector::distance(
