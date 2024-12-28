@@ -76,3 +76,7 @@ imgui.ini
 
 # Temporary directory for dependencies
 .deps
+
+*.a
+output/*
+ **/FuzzArgsProfile.pb.*
